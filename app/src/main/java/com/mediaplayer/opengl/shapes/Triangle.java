@@ -1,4 +1,4 @@
-package com.mediaplayer.opengl;
+package com.mediaplayer.opengl.shapes;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
