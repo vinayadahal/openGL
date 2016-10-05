@@ -19,19 +19,15 @@ public class Rectangle {
     private FloatBuffer vertexBuffer;    // buffer holding the vertices
 
     private float vertices[] = {
-            -1.0f, -1.0f, 0.0f,        // V1 - bottom left
-            -1.0f, 1.0f, 0.0f,        // V2 - top left
-            1.0f, -1.0f, 0.0f,        // V3 - bottom right
-            1.0f, 1.0f, 0.0f            // V4 - top right
+            -0.9f, -1.3f, 0.0f,        // V1 - bottom left
+            -0.9f, 1.3f, 0.0f,        // V2 - top left
+            0.9f, -1.3f, 0.0f,        // V3 - bottom right
+            0.9f, 1.3f, 0.0f            // V4 - top right
     };
 
     private FloatBuffer textureBuffer;    // buffer holding the texture coordinates
     private float texture[] = {
             // Mapping coordinates for the vertices
-//            -3.0f, 1.0f,        // top left		(V2)
-//            3.0f, -1.0f,        // bottom left	(V1)
-//            3.0f, 1.0f,        // top right	(V4)
-//            3.0f, -1.0f        // bottom right	(V3)
             0.0f, 1.0f,        // top left		(V2)
             0.0f, 0.0f,        // bottom left	(V1)
             1.0f, 1.0f,        // top right	(V4)
@@ -42,8 +38,8 @@ public class Rectangle {
 
     public void loadGLTexture(GL10 gl, Context context) {
         // loading texture
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.i);
-
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.img);
+        System.out.println("bitmap height:::: " + bitmap.getHeight());
         // generate one texture pointer
         gl.glGenTextures(1, textures, 0);
         // ...and bind it to our array
@@ -74,26 +70,19 @@ public class Rectangle {
         textureBuffer.position(0);
     }
 
-    public void draw(GL10 gl) {
-        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-
-        // set the colour for the triangle
-//        gl.glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
-
-        // Point to our vertex buffer
-        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
-
-        // Draw the vertices as triangle strip
-        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
-
-        //Disable the client state before leaving
-        gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-
-        //showing image
+    public void draw(GL10 gl) { //don't mess up the order for showing the picture correctly
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
+
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glFrontFace(GL10.GL_CW);
+
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
         gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, textureBuffer);
+
+        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
+
+        gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
     }
 

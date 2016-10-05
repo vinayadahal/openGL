@@ -49,7 +49,7 @@ public class VideoRenderer implements GLSurfaceView.Renderer {
         gl.glLoadIdentity();                    //Reset The Projection Matrix
 
         //Calculate The Aspect Ratio Of The Window
-        GLU.gluPerspective(gl, 45.0f, (float) width / (float) height, 0.1f, 100.0f);
+        GLU.gluPerspective(gl, 45.0f, ((float) width / (float) height), 0.1f, 100.0f);
 
         gl.glMatrixMode(GL10.GL_MODELVIEW);    //Select The Modelview Matrix
         gl.glLoadIdentity();                    //Reset The Modelview Matrix
@@ -65,8 +65,7 @@ public class VideoRenderer implements GLSurfaceView.Renderer {
         gl.glLoadIdentity();
 
         // Drawing
-        gl.glTranslatef(0.0f, 0.0f, -5.0f);        // move 5 units INTO the screen
-        // is the same as moving the camera 5 units away
+        gl.glTranslatef(0.0f, 0.0f, -5.0f);        // move 5 units INTO the screen is the same as moving the camera 5 units away
 //        triangle.draw(gl);                        // Draw the triangle
         rectangle.draw(gl);
     }
